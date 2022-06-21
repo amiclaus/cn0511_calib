@@ -39,7 +39,7 @@ static GtkWidget *cn0511_panel;
 static GtkWidget *scale_offset;
 static GtkWidget *calib_frequency;
 static GtkWidget *calib_amplitude;
-static GtkWidget *calib_en;
+static GtkButton *calib_en;
 static GtkAdjustment *adj_scale;
 
 static gboolean plugin_detached;
@@ -169,8 +169,8 @@ static GtkWidget *cn0511_init(struct osc_plugin *plugin, GtkWidget *notebook,
 						"spinbutton_calib_freq"));
 	calib_amplitude = GTK_WIDGET(gtk_builder_get_object(builder,
 						"spinbutton_calib_amplitude"));
-	calib_en = GTK_WIDGET(gtk_builder_get_object(builder,
-						"calib_enable"));
+	calib_en = GTK_BUTTON(gtk_builder_get_object(builder,
+						"calib_btn"));
 
 	dac_ch = iio_device_find_channel(dac, "altvoltage0", true);
 
@@ -212,7 +212,7 @@ static GtkWidget *cn0511_init(struct osc_plugin *plugin, GtkWidget *notebook,
 	g_signal_connect(G_OBJECT(calib_amplitude), "value-changed",
 			 G_CALLBACK(save_calib_ampl), NULL);
 
-	g_signal_connect(G_OBJECT(calib_en), "toggled",
+	g_signal_connect(G_OBJECT(calib_en), "clicked",
 			 G_CALLBACK(save_calib_config), NULL);
 
 
