@@ -79,9 +79,6 @@ static void save_calib_freq(GtkSpinButton *btn, gpointer data)
 static void save_calib_ampl(GtkSpinButton *btn, gpointer data)
 {
 	amplitude = gtk_spin_button_get_value(btn);
-
-
-	ad9166_device_set_amplitude(dac, amplitude);
 }
 
 static void save_calib_config(GtkSpinButton *btn, gpointer data)
@@ -91,6 +88,8 @@ static void save_calib_config(GtkSpinButton *btn, gpointer data)
 	ad9166_context_find_calibration_data(ctx, "cn0511", &calib_data);
 
 	ad9166_channel_set_freq(dac_ch, calib_freq);
+
+	ad9166_device_set_amplitude(dac, amplitude);
 
 	ad9166_device_set_iofs(dac, calib_data, calib_freq);
 }
